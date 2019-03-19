@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Integers and Floating Points - Unsafe Code Guidelines Reference</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="../glossary.html">Glossary</a></li><li><a href="../layout.html"><strong aria-hidden="true">1.</strong> Data layout</a></li><li><ol class="section"><li><a href="../layout/structs-and-tuples.html"><strong aria-hidden="true">1.1.</strong> Structs and tuples</a></li><li><a href="../layout/integers-floatingpoint.html" class="active"><strong aria-hidden="true">1.2.</strong> Integers and Floating Points</a></li><li><a href="../layout/enums.html"><strong aria-hidden="true">1.3.</strong> Enums</a></li><li><a href="../layout/unions.html"><strong aria-hidden="true">1.4.</strong> Unions</a></li><li><a href="../layout/arrays-and-slices.html"><strong aria-hidden="true">1.5.</strong> Arrays and Slices</a></li><li><a href="../layout/packed-simd-vectors.html"><strong aria-hidden="true">1.6.</strong> Packed SIMD vectors</a></li></ol></li><li><a href="../optimizations.html"><strong aria-hidden="true">2.</strong> Optimizations</a></li><li><ol class="section"><li><a href="../optimizations/return_value_optimization.html"><strong aria-hidden="true">2.1.</strong> Return value optimization</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Unsafe Code Guidelines Reference</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#layout-of-boolean-floating-point-and-integral-types" id="layout-of-boolean-floating-point-and-integral-types"><h1>Layout of Boolean, Floating Point, and Integral Types</h1></a>
+<p>This chapter represents the consensus from issue <a href="https://github.com/rust-rfcs/unsafe-code-guidelines/issues/9">#9</a>. It documents the memory layout and considerations for <code>bool</code>, <code>usize</code>, <code>isize</code>, floating point types, and integral types.</p>
+<a class="header" href="#overview" id="overview"><h2>Overview</h2></a>
+<p>These are all scalar types, representing a single value. These types have no layout variants (no <code>#[repr(C)]</code> or <code>#[repr(Rust)]</code>). Their size is fixed and well-defined across FFI boundaries and map to their corresponding integral types in the C ABI.</p>
+<ul>
+<li><code>bool</code>: 1 byte
+<ul>
+<li>any <code>bool</code> can be cast into an integer, taking on the values 1 (true) or 0 (false)</li>
+</ul>
+</li>
+<li><code>usize</code>, <code>isize</code>: pointer-sized unsigned/signed integer type</li>
+<li><code>u8</code> .. <code>u128</code>, <code>i8</code> .. <code>i128</code>
+<ul>
+<li>{8, 16, 32, 64, 128}-bit unsigned integer</li>
+<li>{8, 16, 32, 64, 128}-bit signed integer</li>
+</ul>
+</li>
+<li><code>f32</code>, <code>f64</code>
+<ul>
+<li>IEEE floats</li>
+<li>32-bit or 64-bit</li>
+</ul>
+</li>
+<li><code>char</code>
+<ul>
+<li>C++ char: equivalent to either <code>i8</code>/<code>u8</code></li>
+<li>Rust char: 32-bit</li>
+<li>not ABI compatible</li>
+<li>represents <a href="http://www.unicode.org/glossary/#unicode_scalar_value">Unicode scalar value</a></li>
+</ul>
+</li>
+</ul>
+<a class="header" href="#usizeisize" id="usizeisize"><h2><code>usize</code>/<code>isize</code></h2></a>
+<p>Types <code>usize</code> and <code>isize</code> are committed to having the same size as a native pointer on the platform. The layout of <code>usize</code> determines the following:</p>
+<ul>
+<li>how much a pointer of a certain type can be offseted,</li>
+<li>the maximum size of Rust objects (because size_of/size_of_val return <code>usize</code>),</li>
+<li>the maximum number of elements in an array (<code>[T; N: usize]</code>),</li>
+<li><code>usize</code>/<code>isize</code> in C FFI are compatible with C's <code>uintptr_t</code> / <code>intptr_t</code> (and have the same size and alignment).</li>
+</ul>
+<p>The maximum size of any single value must fit within <code>usize</code> to <a href="https://github.com/rust-rfcs/unsafe-code-guidelines/pull/5#discussion_r212703192">ensure that pointer diff is representable</a>.</p>
+<p><code>usize</code> and C’s <code>unsized</code> are <em>not</em> equivalent.</p>
+<a class="header" href="#booleans" id="booleans"><h2>Booleans</h2></a>
+<p>Rust's <code>bool</code> has the same layout as C17's<code>_Bool</code>, that is, its size and alignment are implementation-defined.</p>
+<p>Note: on all platforms that Rust's currently supports, the size and alignment of bool are 1, and its ABI class is INTEGER.</p>
+<p>For full ABI compatibility details, see <a href="https://gankro.github.io/blah/rust-layouts-and-abis/#the-layoutsabis-of-builtins">Gankro’s post</a>.</p>
+<a class="header" href="#relationship-to-c-integer-hierarchy" id="relationship-to-c-integer-hierarchy"><h2>Relationship to C integer hierarchy</h2></a>
+<p>C integers:</p>
+<ul>
+<li>char: at least 8 bits</li>
+<li>short: at least 16 bits (also at least a char)</li>
+<li>int: at least a short (intended to be a native integer size)</li>
+<li>long: at least 32 bits (also at least an int)</li>
+<li>long long: at least 64 bits (also at least a long)
+The C integer types specify a minimum size, but not the exact size. For this reason, Rust integer types are not necessarily compatible with the “corresponding” C integer type. Instead, use the corresponding fixed size data types (e.g. <code>i64</code> in Rust would correspond to <code>int64_t</code> in C).</li>
+</ul>
+<a class="header" href="#controversies" id="controversies"><h2>Controversies</h2></a>
+<p>There has been some debate about what to pick as the &quot;official&quot; behavior for bool:</p>
+<ul>
+<li>Rust does what C does (this is what the lang team decided)
+<ul>
+<li>and in all cases you care about, that is 1 byte that is 0 or 1
+or</li>
+</ul>
+</li>
+<li>Rust makes it 1 byte with values 0 or 1
+<ul>
+<li>and in all cases you care about, this is what C does</li>
+</ul>
+</li>
+</ul>
+<p>Related discussions: <a href="https://github.com/rust-lang/rust/pull/46156">document the size of bool</a>, <a href="https://github.com/rust-rfcs/unsafe-code-guidelines/issues/53#issuecomment-447050232">bool== _Bool?</a>, <a href="https://github.com/rust-lang/rust/pull/46176#issuecomment-359593446">bool ABI</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../layout/structs-and-tuples.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../layout/enums.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../layout/structs-and-tuples.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../layout/enums.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
